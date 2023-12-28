@@ -30,7 +30,7 @@ export default async function handler(
     const uri = "at://" + handle + "/app.bsky.feed.generator/" + id;
 
     const data = await _agent.getFeedTimeline({
-      limit: 20,
+      limit: 40,
       cursor: "",
       feed: uri,
     });
@@ -67,8 +67,6 @@ export default async function handler(
 
     res.status(200).json({ posts: pickePosts, cursor });
   } catch (e) {
-    console.error("API Request Failed");
-    console.error(e);
     res.status(404).end('{"message": "不明なエラーが発生しました。"}');
   }
 }

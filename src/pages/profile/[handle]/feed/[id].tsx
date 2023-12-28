@@ -1,6 +1,7 @@
 import { Gallery } from "@/components/Gallery";
 import type { APIResponse, Posts } from "@/types/api";
 import type { GetServerSideProps } from "next";
+import Head from "next/head";
 import Link from "next/link";
 
 export const getServerSideProps: GetServerSideProps<{ posts: Posts }, { handle: string; id: string }> = async (
@@ -25,6 +26,11 @@ export const getServerSideProps: GetServerSideProps<{ posts: Posts }, { handle: 
 export default function Home({ posts }: { posts: Posts }) {
   return (
     <>
+      <Head>
+        <title>Gallery — BskyFeedWallpaper</title>
+        <meta name="description" content="bsky Feed wallpaper" />
+      </Head>
+
       {posts.length > 0 ? (
         <Gallery posts={posts} />
       ) : (

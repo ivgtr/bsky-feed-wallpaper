@@ -64,7 +64,10 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
         <>
           <ImageViewer images={currentPost.images} zIndex={1} />
           <ImageViewer images={nextPost.images} zIndex={0} />
-          <AuthorCard author={currentPost.author} />
+          <AuthorCard author={currentPost.author} key={currentPost.author.did} />
+          <div className="invisible">
+            <AuthorCard author={nextPost.author} key={nextPost.author.did} />
+          </div>
         </>
       )}
       <ShortcutObserver changeSlideSpeed={changeSlideSpeed} changeNextPost={changeNextPost} />

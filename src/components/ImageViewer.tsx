@@ -1,4 +1,5 @@
 import { Images } from "@/types/api";
+import Image from "next/image";
 
 export const ImageViewer = ({ images, zIndex }: { images: Images; zIndex: number }) => {
   return (
@@ -10,7 +11,7 @@ export const ImageViewer = ({ images, zIndex }: { images: Images; zIndex: number
     >
       {images.map((image, index) => (
         <div key={index} className="absolute top-0 left-0 w-full h-full block">
-          <img
+          <Image
             src={image.fullsize}
             width={image.aspectRatio?.width}
             height={image.aspectRatio?.height}
