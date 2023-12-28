@@ -2,7 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["cdn.bsky.app"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.bsky.app",
+        port: "",
+        pathname: "/img/**/*",
+      },
+    ],
   },
 };
 
