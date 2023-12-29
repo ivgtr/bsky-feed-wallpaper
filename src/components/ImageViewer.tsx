@@ -12,8 +12,8 @@ export const ImageViewer = ({ image, zIndex }: { image: Image; zIndex: number })
         <div className="absolute inset-0 w-full h-full z-30">
           <img src={image.fullsize} alt={image.alt} className="object-contain w-full h-full z-20" />
         </div>
-        <div className="w-full h-full bg-black opacity-30 z-10"></div>
-        <div className="absolute inset-0 w-full h-full">
+        <div className="absolute w-full h-full bg-black opacity-30 z-20"></div>
+        <div className="absolute inset-0 w-full h-full z-10">
           <img src={image.fullsize} alt={image.alt} className="object-cover w-full h-full blur-sm" />
         </div>
       </div>
