@@ -1,5 +1,6 @@
 import { Gallery } from "@/components/Gallery";
-import type { APIResponse, Posts } from "@/types/api";
+import type { APIResponse } from "@/types/api";
+import type { Posts } from "@/types/post";
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -34,8 +35,9 @@ export default function Home({ posts }: { posts: Posts }) {
       {posts.length > 0 ? (
         <Gallery posts={posts} />
       ) : (
-        <div className="min-h-screen h-full flex flex-wrap items-center justify-center">
-          <p>投稿がありません</p>
+        <div className="min-h-screen h-full flex flex-wrap flex-col items-center justify-center gap-8">
+          <p>画像を含む投稿が存在しないか、フィードの取得に失敗しました。</p>
+
           <Link
             href="/"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

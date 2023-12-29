@@ -1,4 +1,4 @@
-import type { Posts } from "@/types/api";
+import type { Posts } from "@/types/post";
 
 import { AuthorCard } from "@/components/AuthorCard";
 import { ImageViewer } from "@/components/ImageViewer";
@@ -68,6 +68,7 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
           <div className="invisible">
             <AuthorCard author={nextPost.author} key={nextPost.author.did} />
           </div>
+          <ShortcutObserver changeSlideSpeed={changeSlideSpeed} changeNextPost={changeNextPost} />
         </>
       )}
       <ShortcutObserver changeSlideSpeed={changeSlideSpeed} changeNextPost={changeNextPost} />

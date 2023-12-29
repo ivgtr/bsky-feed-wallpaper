@@ -45,7 +45,7 @@ export default async function handler(
     const cursor = data.cursor || "";
     const posts = data.feed;
 
-    const pickePosts = posts
+    const pickedPosts = posts
       .filter((post) => {
         // 画像がないものは除外
         if (!post.post?.embed?.images) {
@@ -65,7 +65,7 @@ export default async function handler(
         };
       });
 
-    res.status(200).json({ posts: pickePosts, cursor });
+    res.status(200).json({ posts: pickedPosts, cursor });
   } catch (e) {
     res.status(404).end('{"message": "不明なエラーが発生しました。"}');
   }
