@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { AppBskyActorDefs, AppBskyEmbedImages } from "@atproto/api";
-import { Agent } from "@/libs/bsky-agent";
-import { Posts } from "./post";
+import type { Posts } from "./post";
 
 export type Author = AppBskyActorDefs.ProfileViewBasic;
 

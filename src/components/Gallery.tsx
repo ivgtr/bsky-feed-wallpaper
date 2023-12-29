@@ -78,7 +78,7 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
     <div className="min-h-svh h-full w-full overflow-hidden" onClick={changeNextPost}>
       {currentPost && nextPost && (
         <>
-          <ImageViewer image={currentPost.image} zIndex={1} />
+          <ImageViewer image={currentPost.image} zIndex={1} key={currentPost.image.thumb} />
           <ImageViewer image={nextPost.image} zIndex={0} />
           {isShowAuthor && <AuthorCard author={currentPost.author} key={currentPost.author.did} />}
           {isShowClock && <Clock />}

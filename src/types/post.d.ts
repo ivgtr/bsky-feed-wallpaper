@@ -1,3 +1,5 @@
+import type { Image, Author } from "./api";
+
 export type Post = {
   uri: string;
   author: Author;
