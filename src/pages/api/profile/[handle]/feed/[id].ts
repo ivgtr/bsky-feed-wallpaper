@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { APIResponse, Image, Images } from "@/types/api";
+import type { APIResponse, Image } from "@/types/api";
 
 import { Agent } from "@/libs/bsky-agent";
 
@@ -56,7 +56,7 @@ export default async function handler(
       .map((post) => {
         const uri = post.post.uri;
         const author = post.post.author;
-        const images = post.post?.embed?.images as Images;
+        const images = post.post?.embed?.images as Image[];
 
         return {
           uri,
