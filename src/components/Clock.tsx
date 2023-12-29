@@ -4,24 +4,25 @@ import { GithubPicker } from "react-color";
 
 const oswald = Oswald({ subsets: ["latin"] });
 
-export const Clock = () => {
+export const Clock = ({ color, handleColorChange }: { color: string; handleColorChange: (color: string) => void }) => {
   const timerRef = useRef<ReturnType<typeof setInterval>>();
   const [time, setTime] = useState<Date | null>(null);
   const [isShowColorPicker, setIsShowColorPicker] = useState<boolean>(false);
-  const [color, setColor] = useState<string>("#93c5fd");
-  const [isReady, setIsReady] = useState<boolean>(false);
   const timeString = useMemo(() => {
     if (time === null) return "";
     // HH:mm 形式で表示
     return `${time.getHours().toString().padStart(2, "0")}:${time.getMinutes().toString().padStart(2, "0")}`;
   }, [time]);
 
-  const handleColorChange = useCallback((color: { hex: string }) => {
-    setColor(color.hex);
+  const colorChange = useCallback((color: { hex: string }) => {
+    handleColorChange(color.hex);
     setIsShowColorPicker(false);
   }, []);
 
   useEffect(() => {
+    if (timerRef.current === undefined) {
+      setTime(new Date());
+    }
     if (timerRef.current !== undefined) {
       clearInterval(timerRef.current);
     }
@@ -36,25 +37,9 @@ export const Clock = () => {
     };
   }, []);
 
-  // localStorage に保存
-  useEffect(() => {
-    if (!isReady) return;
-    localStorage.setItem("color", color);
-  }, [color, isReady]);
-
-  // localStorage から読み込み
-  useEffect(() => {
-    const color = localStorage.getItem("color");
-    if (color !== null) {
-      setColor(color);
-    }
-    setIsReady(true);
-    setTime(new Date());
-  }, []);
-
   return (
     <div className="absolute flex justify-start left-0 top-0 z-10 w-full">
-      {time !== null && isReady && (
+      {time !== null && (
         <>
           <div
             className="m-4 cursor-pointer"
@@ -86,7 +71,7 @@ export const Clock = () => {
                   "#a7e4fc",
                   "#c1f5f5",
                 ]}
-                onChangeComplete={handleColorChange}
+                onChangeComplete={colorChange}
                 styles={{
                   default: {
                     card: {

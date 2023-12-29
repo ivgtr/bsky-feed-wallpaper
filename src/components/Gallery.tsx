@@ -13,6 +13,7 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
   const [isShowClock, setIsShowClock] = useState<boolean>(false);
   const [isShowAuthor, setIsShowAuthor] = useState<boolean>(true);
   const [isReady, setIsReady] = useState<boolean>(false);
+  const [color, setColor] = useState<string>("#93c5fd");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [postOrder, setPostOrder] = useState<number[]>([]);
   const currentPost = useMemo(() => {
@@ -53,6 +54,10 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
     setIsShowAuthor((prev) => !prev);
   }, []);
 
+  const handleColorChange = useCallback((color: string) => {
+    setColor(color);
+  }, []);
+
   useEffect(() => {
     if (timerRef.current !== undefined) {
       clearTimeout(timerRef.current);
@@ -89,6 +94,10 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
     if (isShowAuthor !== null) {
       setIsShowAuthor(isShowAuthor === "true");
     }
+    const color = localStorage.getItem("color");
+    if (color !== null) {
+      setColor(color);
+    }
     setIsReady(true);
   }, []);
 
@@ -98,7 +107,8 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
     localStorage.setItem("slideSpeed", String(slideSpeed));
     localStorage.setItem("isShowClock", String(isShowClock));
     localStorage.setItem("isShowAuthor", String(isShowAuthor));
-  }, [slideSpeed, isShowClock, isShowAuthor, isReady]);
+    localStorage.setItem("color", color);
+  }, [slideSpeed, isShowClock, isShowAuthor, isReady, color]);
 
   return (
     <div className="min-h-svh h-full w-full overflow-hidden" onClick={changeNextPost}>
@@ -106,8 +116,8 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
         <>
           <ImageViewer image={currentPost.image} zIndex={1} key={currentPost.image.thumb} />
           <ImageViewer image={nextPost.image} zIndex={0} />
-          {isShowAuthor && <AuthorCard author={currentPost.author} key={currentPost.author.did} />}
-          {isShowClock && <Clock />}
+          {isShowAuthor && <AuthorCard author={currentPost.author} color={color} key={currentPost.author.did} />}
+          {isShowClock && <Clock color={color} handleColorChange={handleColorChange} />}
           <ShortcutObserver
             changeSlideSpeed={changeSlideSpeed}
             changeNextPost={changeNextPost}
