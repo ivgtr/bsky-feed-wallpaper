@@ -49,17 +49,17 @@ export const Form = () => {
         })}
       >
         <div className="relative">
-          <label htmlFor="url" className="block text-gray-700 text-sm font-bold mb-2">
+          <label htmlFor="url" className="block text-gray-700 text-sm font-bold">
             URL
           </label>
           <input
             id="url"
             type="text"
-            className="shadow appearance-none border rounded w-full py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 mt-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="ここにURLをペースト"
             {...register("url")}
           />
-          {errors.url?.message && <p className="text-red-500 text-xs italic">{`${errors.url?.message}`}</p>}
+          {errors.url?.message && <p className="text-red-500 text-xs italic mt-3">{`${errors.url?.message}`}</p>}
         </div>
         <div className="flex gap-2 justify-end mt-6">
           <button

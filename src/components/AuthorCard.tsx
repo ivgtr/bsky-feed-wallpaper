@@ -1,5 +1,4 @@
 import { Author } from "@/types/api";
-import Image from "next/image";
 
 export const AuthorCard = ({ author }: { author: Author }) => {
   return (
