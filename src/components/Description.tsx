@@ -6,7 +6,15 @@ export const Description = () => {
         <ul>
           <li className="mt-2">
             <p className="text-gray-700">
-              1. BlueSkyの<a href="https://bsky.app/feeds">マイフィード</a>
+              1. BlueSkyの
+              <a
+                href="https://bsky.app/feeds"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                マイフィード
+              </a>
               などから表示したいフィードのURLをコピーしてください。
             </p>
           </li>
