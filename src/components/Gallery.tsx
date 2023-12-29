@@ -62,8 +62,9 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
     <div className="min-h-dvh h-full w-full overflow-hidden" onClick={changeNextPost}>
       {currentPost && nextPost && (
         <>
-          <ImageViewer images={currentPost.images} zIndex={1} />
-          <ImageViewer images={nextPost.images} zIndex={0} />
+          <ImageViewer image={currentPost.images[0]} zIndex={1} />
+          <ImageViewer image={currentPost.images[0]} zIndex={1} />
+          <ImageViewer image={nextPost.images[0]} zIndex={0} />
           <AuthorCard author={currentPost.author} key={currentPost.author.did} />
           <div className="invisible">
             <AuthorCard author={nextPost.author} key={nextPost.author.did} />
@@ -71,7 +72,6 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
           <ShortcutObserver changeSlideSpeed={changeSlideSpeed} changeNextPost={changeNextPost} />
         </>
       )}
-      <ShortcutObserver changeSlideSpeed={changeSlideSpeed} changeNextPost={changeNextPost} />
     </div>
   );
 };
