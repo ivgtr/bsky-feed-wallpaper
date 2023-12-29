@@ -16,7 +16,7 @@ export const AuthorCard = ({ author }: { author: Author }) => {
         <div className="w-16 h-16 lg:w-24 lg:h-24">
           <div className="rounded-full w-full h-full overflow-hidden">
             {author.avatar ? (
-              <Image src={author.avatar} alt={author.displayName || ""} fill className="object-contain !relative" />
+              <img src={author.avatar} alt={author.handle} className="object-contain !relative" />
             ) : (
               <div className="rounded-full w-full h-full bg-gray-300" />
             )}
