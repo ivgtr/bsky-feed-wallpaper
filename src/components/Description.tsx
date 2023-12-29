@@ -5,22 +5,40 @@ export const Description = () => {
         <h3 className="text-xl text-gray-700 font-bold">【使い方】</h3>
         <ul>
           <li className="mt-2">
-            1. BlueSkyの<a href="https://bsky.app/feeds">マイフィード</a>
-            などから表示したいフィードのURLをコピーしてください。
+            <p className="text-gray-700">
+              1. BlueSkyの<a href="https://bsky.app/feeds">マイフィード</a>
+              などから表示したいフィードのURLをコピーしてください。
+            </p>
           </li>
           <li className="mt-2">
-            2. 入力欄に貼り付け送信をクリックすると、カスタムフィードに投稿された画像を壁紙っぽく表示します。
+            <p className="text-gray-700">
+              2. 入力欄に貼り付け送信をクリックすると、カスタムフィードに投稿された画像を壁紙っぽく表示します。
+            </p>
           </li>
-          <li className="mt-2">3. フルスクリーン（F11）で表示すると、より壁紙っぽくなります。</li>
+          <li className="mt-2">
+            <p className="text-gray-700">3. フルスクリーン（F11）で表示すると、より壁紙っぽくなります。</p>
+          </li>
         </ul>
         <h3 className="text-xl text-gray-700 font-bold mt-8">【ショートカット】</h3>
         <ul>
-          <li className="mt-2">F11: フルスクリーン</li>
-          <li className="mt-2">数字キー: 速度変更</li>
-          <li className="mt-2">Space: 再生・停止</li>
-          <li className="mt-2">Enter: 次のスクリーン</li>
-          <li className="mt-2">A: アバターの表示・非表示</li>
-          <li className="mt-2">C: 時計の表示・非表示</li>
+          <li className="mt-2">
+            <p className="text-gray-700">F11: フルスクリーン</p>
+          </li>
+          <li className="mt-2">
+            <p className="text-gray-700">数字キー: 速度変更</p>
+          </li>
+          <li className="mt-2">
+            <p className="text-gray-700">Space: 再生・停止</p>
+          </li>
+          <li className="mt-2">
+            <p className="text-gray-700">Enter: 次のスクリーン</p>
+          </li>
+          <li className="mt-2">
+            <p className="text-gray-700">A: アバターの表示・非表示</p>
+          </li>
+          <li className="mt-2">
+            <p className="text-gray-700">C: 時計の表示・非表示</p>
+          </li>
         </ul>
       </div>
     </div>

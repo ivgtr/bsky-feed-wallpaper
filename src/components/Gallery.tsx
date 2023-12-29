@@ -75,7 +75,7 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
   }, [posts]);
 
   return (
-    <div className="min-h-dvh h-full w-full overflow-hidden" onClick={changeNextPost}>
+    <div className="min-h-svh h-full w-full overflow-hidden" onClick={changeNextPost}>
       {currentPost && nextPost && (
         <>
           <ImageViewer image={currentPost.images[0]} zIndex={1} />
