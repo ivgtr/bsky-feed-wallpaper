@@ -1,5 +1,4 @@
 import type { Image } from "@/types/api";
-import { motion } from "framer-motion";
 
 export const ImageViewer = ({ image, zIndex }: { image: Image; zIndex: number }) => {
   return (
