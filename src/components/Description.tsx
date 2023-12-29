@@ -17,8 +17,10 @@ export const Description = () => {
         <ul>
           <li className="mt-2">F11: フルスクリーン</li>
           <li className="mt-2">数字キー: 速度変更</li>
-          <li className="mt-2">Space: 停止・再生切り替え</li>
+          <li className="mt-2">Space: 再生・停止</li>
           <li className="mt-2">Enter: 次のスクリーン</li>
+          <li className="mt-2">A: アバターの表示・非表示</li>
+          <li className="mt-2">C: 時計の表示・非表示</li>
         </ul>
       </div>
     </div>

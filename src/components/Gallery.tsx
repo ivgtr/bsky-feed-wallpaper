@@ -4,11 +4,14 @@ import { AuthorCard } from "@/components/AuthorCard";
 import { ImageViewer } from "@/components/ImageViewer";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ShortcutObserver } from "./ShortcutObserver";
+import { Clock } from "./Clock";
 
 export const Gallery = ({ posts }: { posts: Posts }) => {
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
   const [slideSpeed, setSlideSpeed] = useState<number>(10000);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [isShowClock, setIsShowClock] = useState<boolean>(false);
+  const [isShowAuthor, setIsShowAuthor] = useState<boolean>(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [postOrder, setPostOrder] = useState<number[]>([]);
   const currentPost = useMemo(() => {
@@ -39,6 +42,14 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
 
   const toggleIsPlaying = useCallback(() => {
     setIsPlaying((prev) => !prev);
+  }, []);
+
+  const toggleIsShowClock = useCallback(() => {
+    setIsShowClock((prev) => !prev);
+  }, []);
+
+  const toggleIsShowAuthor = useCallback(() => {
+    setIsShowAuthor((prev) => !prev);
   }, []);
 
   useEffect(() => {
@@ -73,10 +84,13 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
           <div className="invisible">
             <AuthorCard author={nextPost.author} key={nextPost.author.did} />
           </div>
+          {isShowClock && <Clock />}
           <ShortcutObserver
             changeSlideSpeed={changeSlideSpeed}
             changeNextPost={changeNextPost}
             toggleIsPlaying={toggleIsPlaying}
+            toggleIsShowClock={toggleIsShowClock}
+            toggleIsShowAuthor={toggleIsShowAuthor}
           />
         </>
       )}
