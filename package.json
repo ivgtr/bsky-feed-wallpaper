@@ -12,8 +12,10 @@
     "@atproto/api": "^0.7.4",
     "@hookform/resolvers": "^3.3.3",
     "classnames": "^2.5.0",
+    "framer-motion": "^10.16.16",
     "next": "14.0.4",
     "react": "^18",
+    "react-color": "^2.19.3",
     "react-dom": "^18",
     "react-hook-form": "^7.49.2",
     "zod": "^3.22.4"
@@ -21,6 +23,7 @@
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-color": "^3.0.10",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
