@@ -12,6 +12,7 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isShowClock, setIsShowClock] = useState<boolean>(false);
   const [isShowAuthor, setIsShowAuthor] = useState<boolean>(true);
+  const [isReady, setIsReady] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [postOrder, setPostOrder] = useState<number[]>([]);
   const currentPost = useMemo(() => {
@@ -74,9 +75,34 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
     setPostOrder(order);
   }, [posts]);
 
+  // localStorageから設定を読み込む
+  useEffect(() => {
+    const speed = localStorage.getItem("slideSpeed");
+    if (speed !== null) {
+      setSlideSpeed(Number(speed));
+    }
+    const isShowClock = localStorage.getItem("isShowClock");
+    if (isShowClock !== null) {
+      setIsShowClock(isShowClock === "true");
+    }
+    const isShowAuthor = localStorage.getItem("isShowAuthor");
+    if (isShowAuthor !== null) {
+      setIsShowAuthor(isShowAuthor === "true");
+    }
+    setIsReady(true);
+  }, []);
+
+  // localStorageに設定を保存する
+  useEffect(() => {
+    if (!isReady) return;
+    localStorage.setItem("slideSpeed", String(slideSpeed));
+    localStorage.setItem("isShowClock", String(isShowClock));
+    localStorage.setItem("isShowAuthor", String(isShowAuthor));
+  }, [slideSpeed, isShowClock, isShowAuthor, isReady]);
+
   return (
     <div className="min-h-svh h-full w-full overflow-hidden" onClick={changeNextPost}>
-      {currentPost && nextPost && (
+      {currentPost && nextPost && isReady && (
         <>
           <ImageViewer image={currentPost.image} zIndex={1} key={currentPost.image.thumb} />
           <ImageViewer image={nextPost.image} zIndex={0} />
