@@ -7,8 +7,6 @@ export type Author = AppBskyActorDefs.ProfileViewBasic;
 
 export type Image = AppBskyEmbedImages.ViewImage;
 
-export type Images = Image[];
-
 export type APIResponse = {
   posts: Posts;
   cursor: string;

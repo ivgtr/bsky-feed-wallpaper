@@ -1,9 +1,10 @@
 import { Gallery } from "@/components/Gallery";
 import type { APIResponse } from "@/types/api";
-import type { Posts } from "@/types/post";
+import type { FlatPost, Posts } from "@/types/post";
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { useMemo } from "react";
 
 export const getServerSideProps: GetServerSideProps<{ posts: Posts }, { handle: string; id: string }> = async (
   context
@@ -25,6 +26,16 @@ export const getServerSideProps: GetServerSideProps<{ posts: Posts }, { handle: 
 };
 
 export default function Home({ posts }: { posts: Posts }) {
+  const flatPosts = useMemo(() => {
+    const _flatPosts: FlatPost[] = [];
+    posts.forEach((post) => {
+      post.images.forEach((image) => {
+        _flatPosts.push({ ...post, image });
+      });
+    });
+    return _flatPosts;
+  }, [posts]);
+
   return (
     <>
       <Head>
@@ -32,8 +43,8 @@ export default function Home({ posts }: { posts: Posts }) {
         <meta name="description" content="bsky Feed wallpaper" />
       </Head>
 
-      {posts.length > 0 ? (
-        <Gallery posts={posts} />
+      {flatPosts.length > 0 ? (
+        <Gallery posts={flatPosts} />
       ) : (
         <div className="min-h-screen h-full flex flex-wrap flex-col items-center justify-center gap-8">
           <p>画像を含む投稿が存在しないか、フィードの取得に失敗しました。</p>

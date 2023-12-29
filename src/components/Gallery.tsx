@@ -1,4 +1,4 @@
-import type { Posts } from "@/types/post";
+import type { FlatPost, Posts } from "@/types/post";
 
 import { AuthorCard } from "@/components/AuthorCard";
 import { ImageViewer } from "@/components/ImageViewer";
@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ShortcutObserver } from "./ShortcutObserver";
 import { Clock } from "./Clock";
 
-export const Gallery = ({ posts }: { posts: Posts }) => {
+export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
   const [slideSpeed, setSlideSpeed] = useState<number>(10000);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
@@ -78,8 +78,8 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
     <div className="min-h-svh h-full w-full overflow-hidden" onClick={changeNextPost}>
       {currentPost && nextPost && (
         <>
-          <ImageViewer image={currentPost.images[0]} zIndex={1} />
-          <ImageViewer image={nextPost.images[0]} zIndex={0} />
+          <ImageViewer image={currentPost.image} zIndex={1} />
+          <ImageViewer image={nextPost.image} zIndex={0} />
           {isShowAuthor && <AuthorCard author={currentPost.author} key={currentPost.author.did} />}
           {isShowClock && <Clock />}
           <ShortcutObserver
