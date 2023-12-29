@@ -1,17 +1,23 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const defaultSpeed = 10000;
 
 export const ShortcutObserver = ({
   changeSlideSpeed,
   changeNextPost,
+  toggleIsPlaying,
 }: {
   changeSlideSpeed: (speed: number) => void;
   changeNextPost: () => void;
+  toggleIsPlaying: () => void;
 }) => {
   const hanfleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       if (event.key === " ") {
+        toggleIsPlaying();
+        return;
+      }
+      if (event.key === "Enter") {
         changeNextPost();
         return;
       }
@@ -22,7 +28,7 @@ export const ShortcutObserver = ({
         return;
       }
     },
-    [changeNextPost, changeSlideSpeed]
+    [changeNextPost, changeSlideSpeed, toggleIsPlaying]
   );
 
   useEffect(() => {

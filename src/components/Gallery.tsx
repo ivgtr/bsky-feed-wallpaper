@@ -8,6 +8,7 @@ import { ShortcutObserver } from "./ShortcutObserver";
 export const Gallery = ({ posts }: { posts: Posts }) => {
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
   const [slideSpeed, setSlideSpeed] = useState<number>(10000);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [postOrder, setPostOrder] = useState<number[]>([]);
   const currentPost = useMemo(() => {
@@ -36,11 +37,15 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
     setSlideSpeed(speed);
   }, []);
 
-  // 10秒ごとに次の投稿に切り替える
+  const toggleIsPlaying = useCallback(() => {
+    setIsPlaying((prev) => !prev);
+  }, []);
+
   useEffect(() => {
     if (timerRef.current !== undefined) {
       clearTimeout(timerRef.current);
     }
+    if (!isPlaying) return;
     timerRef.current = setTimeout(() => {
       changeNextPost();
     }, slideSpeed);
@@ -50,7 +55,7 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
         clearTimeout(timerRef.current);
       }
     };
-  }, [changeNextPost, slideSpeed]);
+  }, [changeNextPost, slideSpeed, isPlaying]);
 
   useEffect(() => {
     const order = Array.from({ length: posts.length }, (_, i) => i).sort(() => Math.random() - 0.5);
@@ -63,13 +68,16 @@ export const Gallery = ({ posts }: { posts: Posts }) => {
       {currentPost && nextPost && (
         <>
           <ImageViewer image={currentPost.images[0]} zIndex={1} />
-          <ImageViewer image={currentPost.images[0]} zIndex={1} />
           <ImageViewer image={nextPost.images[0]} zIndex={0} />
           <AuthorCard author={currentPost.author} key={currentPost.author.did} />
           <div className="invisible">
             <AuthorCard author={nextPost.author} key={nextPost.author.did} />
           </div>
-          <ShortcutObserver changeSlideSpeed={changeSlideSpeed} changeNextPost={changeNextPost} />
+          <ShortcutObserver
+            changeSlideSpeed={changeSlideSpeed}
+            changeNextPost={changeNextPost}
+            toggleIsPlaying={toggleIsPlaying}
+          />
         </>
       )}
     </div>
