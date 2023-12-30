@@ -6,7 +6,7 @@ export const Description = () => {
         <ul>
           <li className="mt-2">
             <p className="text-gray-700">
-              1. BlueSkyの
+              1. Blueskyの
               <a
                 href="https://bsky.app/feeds"
                 target="_blank"

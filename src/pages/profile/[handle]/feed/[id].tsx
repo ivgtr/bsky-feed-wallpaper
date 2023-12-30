@@ -40,12 +40,12 @@ export default function Home({ posts }: { posts: Posts }) {
     <>
       <Head>
         <title>Gallery — BskyFeedWallpaper</title>
-        <meta name="description" content="BlueSkyのカスタムフィードに投稿された画像を壁紙っぽく表示します" />
+        <meta name="description" content="Blueskyのカスタムフィードに投稿された画像を壁紙っぽく表示します" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:site_name" content="BskyFeedWallpaper" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content="Gallery — BskyFeedWallpaper" />
-        <meta property="og:description" content="BlueSkyのカスタムフィードに投稿された画像を壁紙っぽく表示します" />
+        <meta property="og:description" content="Blueskyのカスタムフィードに投稿された画像を壁紙っぽく表示します" />
         <meta name="robots" content="noindex"></meta>
       </Head>
 

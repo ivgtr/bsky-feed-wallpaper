@@ -8,12 +8,12 @@ export default function Home() {
     <>
       <Head>
         <title>HOME — BskyFeedWallpaper</title>
-        <meta name="description" content="BlueSkyのカスタムフィードに投稿された画像を壁紙っぽく表示します" />
+        <meta name="description" content="Blueskyのカスタムフィードに投稿された画像を壁紙っぽく表示します" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:site_name" content="BskyFeedWallpaper" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="HOME — BskyFeedWallpaper" />
-        <meta property="og:description" content="BlueSkyのカスタムフィードに投稿された画像を壁紙っぽく表示します" />
+        <meta property="og:description" content="Blueskyのカスタムフィードに投稿された画像を壁紙っぽく表示します" />
       </Head>
 
       <div className="min-h-screen w-full px-4">
