@@ -8,12 +8,14 @@ export const ShortcutObserver = ({
   toggleIsPlaying,
   toggleIsShowClock,
   toggleIsShowAuthor,
+  toggleIsShowAdult,
 }: {
   changeSlideSpeed: (speed: number) => void;
   changeNextPost: () => void;
   toggleIsPlaying: () => void;
   toggleIsShowClock: () => void;
   toggleIsShowAuthor: () => void;
+  toggleIsShowAdult: () => void;
 }) => {
   const hanfleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -33,6 +35,10 @@ export const ShortcutObserver = ({
         toggleIsShowAuthor();
         return;
       }
+      if (event.key.toLowerCase() === "p") {
+        toggleIsShowAdult();
+        return;
+      }
 
       if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(event.key)) {
         const speed = Math.floor(defaultSpeed / Number(event.key));
@@ -40,7 +46,7 @@ export const ShortcutObserver = ({
         return;
       }
     },
-    [changeNextPost, changeSlideSpeed, toggleIsPlaying, toggleIsShowClock, toggleIsShowAuthor]
+    [changeNextPost, changeSlideSpeed, toggleIsPlaying, toggleIsShowClock, toggleIsShowAuthor, toggleIsShowAdult]
   );
 
   useEffect(() => {

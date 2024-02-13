@@ -42,10 +42,13 @@ export const Description = () => {
             <p className="text-gray-700">Enter: 次のスクリーン</p>
           </li>
           <li className="mt-2">
-            <p className="text-gray-700">A: アバターの表示・非表示</p>
+            <p className="text-gray-700">p: ラベル付与されてる投稿の表示・非表示</p>
           </li>
           <li className="mt-2">
-            <p className="text-gray-700">C: 時計の表示・非表示</p>
+            <p className="text-gray-700">a: アバターの表示・非表示</p>
+          </li>
+          <li className="mt-2">
+            <p className="text-gray-700">c: 時計の表示・非表示</p>
           </li>
         </ul>
       </div>

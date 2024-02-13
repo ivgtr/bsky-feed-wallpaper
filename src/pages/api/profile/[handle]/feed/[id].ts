@@ -57,11 +57,13 @@ export default async function handler(
         const uri = post.post.uri;
         const author = post.post.author;
         const images = post.post?.embed?.images as Image[];
+        const labels = post.post?.labels || [];
 
         return {
           uri,
           author,
           images,
+          labels,
         };
       });
 
