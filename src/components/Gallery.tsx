@@ -13,21 +13,33 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
   const [isShowClock, setIsShowClock] = useState<boolean>(false);
   const [isShowAuthor, setIsShowAuthor] = useState<boolean>(true);
   const [isReady, setIsReady] = useState<boolean>(false);
+  const [isShowAdult, setIsShowAdult] = useState<boolean>(false);
   const [color, setColor] = useState<string>("#93c5fd");
+
+  const filterdPosts = useMemo(() => {
+    return posts.filter((post) => {
+      // isShowAdultがtrueの場合は全ての投稿を表示
+      if (isShowAdult) return true;
+      // labelsのlengthが1以上の場合はadultと判定
+      if (post.labels.length > 0) return false;
+      return true;
+    });
+  }, [posts, isShowAdult]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [postOrder, setPostOrder] = useState<number[]>([]);
   const currentPost = useMemo(() => {
     if (postOrder.length === 0) return null;
-    return posts[postOrder[currentIndex]];
-  }, [currentIndex, postOrder, posts]);
+    return filterdPosts[postOrder[currentIndex]];
+  }, [currentIndex, postOrder, filterdPosts]);
   const nextPost = useMemo(() => {
     if (postOrder.length === 0) return null;
     if (currentIndex + 1 < postOrder.length) {
-      return posts[postOrder[currentIndex + 1]];
+      return filterdPosts[postOrder[currentIndex + 1]];
     } else {
-      return posts[postOrder[0]];
+      return filterdPosts[postOrder[0]];
     }
-  }, [currentIndex, postOrder, posts]);
+  }, [currentIndex, postOrder, filterdPosts]);
 
   const changeNextPost = useCallback(() => {
     if (postOrder.length === 0) return;
@@ -54,6 +66,10 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
     setIsShowAuthor((prev) => !prev);
   }, []);
 
+  const toggleIsShowAdult = useCallback(() => {
+    setIsShowAdult((prev) => !prev);
+  }, []);
+
   const handleColorChange = useCallback((color: string) => {
     setColor(color);
   }, []);
@@ -75,10 +91,10 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
   }, [changeNextPost, slideSpeed, isPlaying]);
 
   useEffect(() => {
-    const order = Array.from({ length: posts.length }, (_, i) => i).sort(() => Math.random() - 0.5);
+    const order = Array.from({ length: filterdPosts.length }, (_, i) => i).sort(() => Math.random() - 0.5);
 
     setPostOrder(order);
-  }, [posts]);
+  }, [filterdPosts]);
 
   // localStorageから設定を読み込む
   useEffect(() => {
@@ -94,6 +110,10 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
     if (isShowAuthor !== null) {
       setIsShowAuthor(isShowAuthor === "true");
     }
+    const isShowAdult = localStorage.getItem("isShowAdult");
+    if (isShowAdult !== null) {
+      setIsShowAdult(isShowAdult === "true");
+    }
     const color = localStorage.getItem("color");
     if (color !== null) {
       setColor(color);
@@ -107,8 +127,9 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
     localStorage.setItem("slideSpeed", String(slideSpeed));
     localStorage.setItem("isShowClock", String(isShowClock));
     localStorage.setItem("isShowAuthor", String(isShowAuthor));
+    localStorage.setItem("isShowAdult", String(isShowAdult));
     localStorage.setItem("color", color);
-  }, [slideSpeed, isShowClock, isShowAuthor, isReady, color]);
+  }, [slideSpeed, isShowClock, isShowAuthor, isShowAdult, isReady, color]);
 
   return (
     <div className="min-h-svh h-full w-full overflow-hidden" onClick={changeNextPost}>
@@ -124,6 +145,7 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
             toggleIsPlaying={toggleIsPlaying}
             toggleIsShowClock={toggleIsShowClock}
             toggleIsShowAuthor={toggleIsShowAuthor}
+            toggleIsShowAdult={toggleIsShowAdult}
           />
         </>
       )}
