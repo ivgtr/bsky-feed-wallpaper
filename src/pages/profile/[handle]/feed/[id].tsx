@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<{ posts: Posts }, { handle: 
   }
 };
 
-export default function Home({ posts }: { posts: Posts }) {
+export default function GalleryPage({ posts }: { posts: Posts }) {
   const flatPosts = useMemo(() => {
     const _flatPosts: FlatPost[] = [];
     posts.forEach((post) => {
