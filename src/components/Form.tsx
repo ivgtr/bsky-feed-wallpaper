@@ -4,8 +4,7 @@ import { z } from "zod";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-// /profile/did:plc:hoge/feed/fuga のような入力を許容する正規表現
-const regex = /\/profile\/did:plc:[\w!?/+\-_~;.,*&@#$%()'[\]]+\/feed\/[\w!?/+\-_~;.,*&@#$%()'[\]]+/;
+const regex = /\/profile\/.+\/feed\/.+/;
 
 const schema = z.object({
   url: z

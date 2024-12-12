@@ -4,6 +4,12 @@ import type { APIResponse, Image } from "@/types/api";
 
 import { Agent } from "@/libs/bsky-agent";
 
+const getDid =  async (handle: string) => {
+  const didUrl = new URL('https://bsky.social/xrpc/com.atproto.identity.resolveHandle');
+  didUrl.searchParams.append('handle', handle);
+  return fetch(didUrl.toString()).then(res => res.json()).then(data => data.did);
+}
+
 export default async function handler(
   req: NextApiRequest & {
     query: {
@@ -21,13 +27,21 @@ export default async function handler(
   }
 
   try {
+    let did = null;
+
+    if (handle.startsWith("did:")) {
+      did = handle;
+    } else {
+      did = await getDid(handle);
+    }
+
     const _agent = new Agent();
 
     const { BSKY_IDENTIFIER, BSKY_APP_PASSWORD } = process.env;
 
     await _agent.login(BSKY_IDENTIFIER!, BSKY_APP_PASSWORD!);
 
-    const uri = "at://" + handle + "/app.bsky.feed.generator/" + id;
+    const uri = "at://" + did + "/app.bsky.feed.generator/" + id;
 
     const data = await _agent.getFeedTimeline({
       limit: 40,
