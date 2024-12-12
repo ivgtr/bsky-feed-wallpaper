@@ -1,10 +1,10 @@
-import type { AppBskyFeedGetFeed, AtpAgent } from "@atproto/api";
-import { BskyAgent } from "@atproto/api";
+import type { AppBskyFeedGetFeed } from "@atproto/api";
+import { AtpAgent } from "@atproto/api";
 
 const service = "https://bsky.social";
 
 const bskyAgent = () => {
-  return new BskyAgent({ service });
+  return new AtpAgent({ service });
 };
 export type AgentType = ReturnType<typeof bskyAgent>;
 
@@ -38,7 +38,7 @@ export class Agent {
   ) {
     try {
       let res: AppBskyFeedGetFeed.Response;
-      res = await this.agent.api.app.bsky.feed.getFeed({
+      res = await this.agent.app.bsky.feed.getFeed({
         limit: opt.limit,
         cursor: opt.cursor,
         feed: opt.feed,
