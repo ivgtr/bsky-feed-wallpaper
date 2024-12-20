@@ -22,28 +22,39 @@ export class Agent {
   }
 
   async login(identifier: string, password: string) {
-    const res = await this.agent.login({
+    await this.agent.login({
       identifier: identifier,
       password: password,
     });
-    return res.data;
+    const session = this.agent.session;
+    return session;
+  }
+
+  async getDid(handle: string) {
+    try {
+      const res = await this.agent.com.atproto.identity.resolveHandle({
+        handle: handle,
+      });
+      return res.data;
+    } catch (e) {
+      console.error(e);
+      return undefined;
+    }
   }
 
   async getFeedTimeline(
     opt: Opt = {
-      limit: 20,
+      limit: 100,
       cursor: "",
       feed: "",
     }
   ) {
     try {
-      let res: AppBskyFeedGetFeed.Response;
-      res = await this.agent.app.bsky.feed.getFeed({
+      const res = await this.agent.app.bsky.feed.getFeed({
         limit: opt.limit,
         cursor: opt.cursor,
         feed: opt.feed,
       });
-
       return res.data;
     } catch (e) {
       console.error(e);
