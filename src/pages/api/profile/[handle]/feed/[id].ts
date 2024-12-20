@@ -4,12 +4,6 @@ import type { APIResponse, Image } from "@/types/api";
 
 import { Agent } from "@/libs/bsky-agent";
 
-const getDid =  async (handle: string) => {
-  const didUrl = new URL('https://bsky.social/xrpc/com.atproto.identity.resolveHandle');
-  didUrl.searchParams.append('handle', handle);
-  return fetch(didUrl.toString()).then(res => res.json()).then(data => data.did);
-}
-
 export default async function handler(
   req: NextApiRequest & {
     query: {
@@ -27,15 +21,20 @@ export default async function handler(
   }
 
   try {
-    let did = null;
+    const _agent = new Agent();
+
+    let did: string;
 
     if (handle.startsWith("did:")) {
       did = handle;
     } else {
-      did = await getDid(handle);
+      const didData = await _agent.getDid(handle);
+      if (!didData) {
+        res.status(404).end('{"message": "ユーザーが見つかりませんでした。"}');
+        return;
+      }
+      did = didData.did;
     }
-
-    const _agent = new Agent();
 
     const { BSKY_IDENTIFIER, BSKY_APP_PASSWORD } = process.env;
 
@@ -44,7 +43,7 @@ export default async function handler(
     const uri = "at://" + did + "/app.bsky.feed.generator/" + id;
 
     const data = await _agent.getFeedTimeline({
-      limit: 40,
+      limit: 100,
       cursor: "",
       feed: uri,
     });
