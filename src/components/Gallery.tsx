@@ -7,7 +7,7 @@ import { ShortcutObserver } from "./ShortcutObserver";
 import { Clock } from "./Clock";
 
 export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [slideSpeed, setSlideSpeed] = useState<number>(10000);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isShowClock, setIsShowClock] = useState<boolean>(false);
@@ -75,7 +75,7 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
   }, []);
 
   useEffect(() => {
-    if (timerRef.current !== undefined) {
+    if (timerRef.current !== null) {
       clearTimeout(timerRef.current);
     }
     if (!isPlaying) return;
@@ -84,7 +84,7 @@ export const Gallery = ({ posts }: { posts: FlatPost[] }) => {
     }, slideSpeed);
 
     return () => {
-      if (timerRef.current !== undefined) {
+      if (timerRef.current !== null) {
         clearTimeout(timerRef.current);
       }
     };
