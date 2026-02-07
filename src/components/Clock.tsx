@@ -5,7 +5,7 @@ import { GithubPicker } from "react-color";
 const oswald = Oswald({ subsets: ["latin"] });
 
 export const Clock = ({ color, handleColorChange }: { color: string; handleColorChange: (color: string) => void }) => {
-  const timerRef = useRef<ReturnType<typeof setInterval>>();
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [time, setTime] = useState<Date | null>(null);
   const [isShowColorPicker, setIsShowColorPicker] = useState<boolean>(false);
   const timeString = useMemo(() => {
@@ -20,10 +20,10 @@ export const Clock = ({ color, handleColorChange }: { color: string; handleColor
   }, []);
 
   useEffect(() => {
-    if (timerRef.current === undefined) {
+    if (timerRef.current === null) {
       setTime(new Date());
     }
-    if (timerRef.current !== undefined) {
+    if (timerRef.current !== null) {
       clearInterval(timerRef.current);
     }
     timerRef.current = setInterval(() => {
@@ -31,7 +31,7 @@ export const Clock = ({ color, handleColorChange }: { color: string; handleColor
     }, 1000);
 
     return () => {
-      if (timerRef.current !== undefined) {
+      if (timerRef.current !== null) {
         clearInterval(timerRef.current);
       }
     };
